@@ -16,7 +16,7 @@ contract DeployFundMe is Script {
 
         vm.startBroadcast();
         // Deploy the FundMe contract with the pric;e feed address
-       address priceFeed = helperConfig.activeNetworkConfig();
+        address priceFeed = helperConfig.activeNetworkConfig();
         console.log("Deploying FundMe with price feed: %s", priceFeed);
 
         FundMe fundMe = new FundMe(priceFeed);

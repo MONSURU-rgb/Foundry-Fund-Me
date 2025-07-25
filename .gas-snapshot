@@ -1,0 +1,8 @@
+FundMeTest:testAmountFundedGreaterThanMinimumUSD() (gas: 32077)
+FundMeTest:testDemo() (gas: 13260)
+FundMeTest:testIfMultipleFunderAmount() (gas: 516804)
+FundMeTest:testIfMultipleFunderAmountCheaper() (gas: 516002)
+FundMeTest:testOnlyOwnerCanWithdraw() (gas: 137076)
+FundMeTest:testOwnerIsMsgSender() (gas: 11194)
+FundMeTest:testPriceFeedIsAccurate() (gas: 14442)
+FundMeTest:testWithdrawWithAsingleFounder() (gas: 124660)

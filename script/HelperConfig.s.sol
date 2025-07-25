@@ -11,7 +11,7 @@ contract HelperConfig is Script {
         address priceFeed;
     }
 
-        // Constants for the test (MAGIC NUMBERS)
+    // Constants for the test (MAGIC NUMBERS)
     uint8 public constant DECIMALS = 8;
     int256 public constant INITIAL_PRICE = 2000e8; // 2000 USD in 8 decimals
 
@@ -31,19 +31,16 @@ contract HelperConfig is Script {
     }
 
     function getAnvilConfig() public returns (NetworkConfig memory) {
-
-        if(activeNetworkConfig.priceFeed != address(0)) {
+        if (activeNetworkConfig.priceFeed != address(0)) {
             console.log("Using existing mock price feed at: %s", activeNetworkConfig.priceFeed);
             return activeNetworkConfig;
         }
-        
+
         vm.startBroadcast();
         MockV3Aggregator mock = new MockV3Aggregator(DECIMALS, INITIAL_PRICE);
         vm.stopBroadcast();
 
-        NetworkConfig memory anvilConfig = NetworkConfig({
-            priceFeed: address(mock)
-        });
+        NetworkConfig memory anvilConfig = NetworkConfig({priceFeed: address(mock)});
 
         return anvilConfig;
     }
