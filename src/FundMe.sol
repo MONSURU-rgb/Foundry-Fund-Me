@@ -55,7 +55,8 @@ contract FundMe {
     }
 
     function withdraw() public onlyOwner {
-        for (uint256 funderIndex = 0; funderIndex < s_funders.length; funderIndex++) {
+        uint256 fundersLength = s_funders.length;
+        for (uint256 funderIndex = 0; funderIndex < fundersLength; funderIndex++) {
             address funder = s_funders[funderIndex];
             s_addressToAmountFunded[funder] = 0;
         }
@@ -74,8 +75,8 @@ contract FundMe {
         return s_addressToAmountFunded[funder];
     }
 
-    function getFunders() public view returns (address[] memory) {
-        return s_funders;
+    function getFunders(uint256 index) public view returns (address) {
+        return s_funders[index];
     }
 
     fallback() external payable {
