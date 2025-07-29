@@ -5,7 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 import {FundFundMe, WithdrawFundMe} from "../../script/Interactions.s.sol";
-import { HelperConfig} from "../../script/HelperConfig.s.sol";
+import {HelperConfig} from "../../script/HelperConfig.s.sol";
 import {StdCheats} from "forge-std/StdCheats.sol";
 
 contract FundMeIntegrationTest is Test {
@@ -19,23 +19,25 @@ contract FundMeIntegrationTest is Test {
     function setUp() external {
         DeployFundMe deployFundMe = new DeployFundMe();
         fundMe = deployFundMe.run();
-        vm.deal(USER, STARTING_BALANCE);
+        vm.deal(address(fundMe), STARTING_BALANCE);
     }
 
     function testUserCanFund() public {
         FundFundMe fundFundMe = new FundFundMe();
-        // vm.prank(USER);
-        // vm.deal((USER), 1e18);
+           fundMe.fund{value: STARTING_BALANCE}();
+        vm.prank(USER);
+        vm.deal((USER), 10e18);
         fundFundMe.fundFundMe(address(fundMe));
-        console.log("Owner is", fundMe.getOwner());
         address funder = fundMe.getFunders(0);
+        console.log("Owner is", fundMe.getOwner(), funder);
 
         console.log("funder is", funder, address(fundMe), address(fundFundMe));
-        assertEq(funder, address(fundMe));
+        assertEq(funder, USER);
 
         WithdrawFundMe withdrawFundMe = new WithdrawFundMe();
-        withdrawFundMe.withdrawFundMe(address(fundFundMe));
-        assert(address(fundMe).balance == 0);
+        vm.prank(fundMe.getOwner());
 
+        withdrawFundMe.withdrawFundMe(address(fundMe));
+        assertEq(address(fundMe).balance, 0);
     }
 }

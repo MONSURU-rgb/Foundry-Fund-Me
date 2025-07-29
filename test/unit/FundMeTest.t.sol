@@ -132,7 +132,7 @@ contract FundMeTest is Test {
         assertEq(endingOwnerBalance, startingOwnerBalance + startingFundMeBalance);
     }
 
-     function testIfMultipleFunderAmountCheaper() public fund {
+    function testIfMultipleFunderAmountCheaper() public fund {
         uint160 numberIndex = 10;
         uint160 startingIndex = 1;
 
